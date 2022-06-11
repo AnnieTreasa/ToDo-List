@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block title %} Home{% endblock title %}
+{% block body %}
+
+
+<!--jumbotron-->
+<!--<div class="jumbotron">-->
+<div class="p-5 mb-4 badge-light  text-black-50 rounded-3" style="background-color: #b4b6ba;">
+  <!--Form-->
+  <div class="container my-3">
+    <h2>Add a Todo</h2>
+    <form action="/" method="POST">
+      <div class="form-group">
+        <label for="tlite" class="form-label">Todo Title</label>
+        <input type="text" class="form-control" name="title" id="title" aria-describedby="emailHelp">
+
+      </div>
+      <div class="mb-3">
+        <label for="desc" class="form-label">Todo Description</label>
+        <input type="text" class="form-control" name="desc" id="desc">
+      </div>
+
+      <button type="submit" class="btn btn-dark">Submit</button>
+    </form>
+  </div>
+
+</div>
+
+<!--Display Todo-->
+<div class="container">
+  <h2>Your ToDos</h2>
+  {% if allTodo|length == 0 %}
+  <div class="alert alert-dark" role="alert">
+    No Todos found. Add your first todo now!
+  </div>
+  {% else%}
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">SNo</th>
+        <th scope="col">Title</th>
+        <th scope="col">Description</th>
+        <th scope="col">Time</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for todo in allTodo %}
+
+      <tr>
+        <th scope="row">{{loop.index}}</th>
+        <td>{{todo.title}}</td>
+        <td>{{todo.desc}}</td>
+        <td>@{{todo.date_created}}</td>
+        <td><a href="/delete/{{todo.sno}}" type="button" class="btn btn-outline-info btn-sm mx-2">Delete</button>
+            <a href="/update/{{todo.sno}}" type="button" class="btn btn-outline-dark btn-sm mx-2">Update</button>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+</div>
+
+{% endblock body %}
